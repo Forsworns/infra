@@ -655,6 +655,13 @@ def add_top_rust_crates(context: CliContext):
     libyaml.add_top_rust_crates()
     libyaml.save()
 
+@cli.command()
+@click.pass_obj
+def add_rust_cuda_crates(context: CliContext):
+    """Add configuration for the Rust-Cuda crates."""
+    libyaml = LibraryYaml(context.installation_context.yaml_dir)
+    libyaml.add_rust_cuda_crates()
+    libyaml.save()
 
 @cli.command()
 @click.pass_obj

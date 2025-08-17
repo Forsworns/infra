@@ -3115,6 +3115,16 @@ libraries:
       - 0.8.8
       - 0.8.21
       type: cratesio
+    cuda-builder:
+      build_type: cargo
+      targets:
+      - 0.3.0
+      type: cratesio
+    cuda-std:
+      build_type: cargo
+      targets:
+      - 0.2.2
+      type: cratesio
     dashmap:
       build_type: cargo
       targets:

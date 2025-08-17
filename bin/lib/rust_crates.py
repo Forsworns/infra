@@ -51,3 +51,27 @@ class TopRustCrates:
             crates.append(dict(libid=crate["id"], libversion=crate["max_stable_version"]))
 
         return crates
+
+
+class RustCudaCrates:
+    def __init__(self):
+        self.cratesio = "https://crates.io"
+        self.agent = get_manual_user_agent_id()
+        # Define the Rust-CUDA crates we need
+        self.cuda_crates = [ "cuda-builder", "cuda-std"]
+    
+    def list(self):
+        """Return the list of Rust-CUDA crates we need to download."""
+        crates = []
+        for crate in self.cuda_crates:
+            crates.append(dict(libid=crate, libversion=self.get_latest_version(crate)))
+        return crates
+        
+    def get_latest_version(self, libid):
+        """Get the latest version of a crate from crates.io."""
+        url = f"{self.cratesio}/api/v1/crates/{libid}"
+        req = urllib.request.Request(url)
+        req.add_header("User-Agent", self.agent)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        return data["crate"]["max_version"]

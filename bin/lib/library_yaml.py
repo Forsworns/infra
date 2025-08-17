@@ -13,7 +13,7 @@ from lib.library_props import (
     should_skip_library_for_windows,
     version_to_id,
 )
-from lib.rust_crates import TopRustCrates
+from lib.rust_crates import TopRustCrates, RustCudaCrates
 
 
 class LibraryYaml:
@@ -83,6 +83,12 @@ class LibraryYaml:
     def add_top_rust_crates(self):
         cratelisting = TopRustCrates()
         crates = cratelisting.list(100)
+        for crate in crates:
+            self.add_rust_crate(crate["libid"], crate["libversion"])
+            
+    def add_rust_cuda_crates(self):
+        cratelisting = RustCudaCrates()
+        crates = cratelisting.list()
         for crate in crates:
             self.add_rust_crate(crate["libid"], crate["libversion"])
 
